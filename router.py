@@ -1,6 +1,8 @@
 from socket import *
 
 class Router:
+  TIMEOUT = 4 # Timeout 4 sec
+  
   message = 'Hello'
   myIP = ''
   myPort = 4000
@@ -18,7 +20,7 @@ class Router:
   # Server Process:
   def createServer(self):
     serverSocket = socket(AF_INET, SOCK_DGRAM)
-    serverSocket.bind(('', 4000))
+    serverSocket.bind((self.myIP, self.port))
 
     while 1:
       try:
@@ -31,5 +33,15 @@ class Router:
         print('ERR: ', err)
         pass
 
+  def checkStatNeighbor(self, ip: str, port: int):
+    clientSocket = socket(AF_INET, SOCK_DGRAM)
+    clientSocket.settimeout(self.TIMEOUT)
+    try:
+      clientSocket.sendto(str.encode(self.message), (ip, port))
+      receivedMessage, addr = clientSocket.recvfrom(1024)
+      print('Received message from ', addr, ':', receivedMessage.decode())
+    except Exception as err:
+      print('Check stat error: ', err)
+      pass
     
 
