@@ -6,11 +6,12 @@ class ProfileManager:
     return None
 
   # Adding new profile.
-  def addAndUpdateProfile(self, name: str, subnet: str, port: int, connList: [str]):
+  def addAndUpdateProfile(self, name: str, ip: str, subnet: str, port: int, connList: [str]):
     profile = {}
     newObj = {
-      'subnet': subnet,
+      'ip': ip,
       'port': port,
+      'subnet': subnet,
       'neighbor': connList 
     }
 
