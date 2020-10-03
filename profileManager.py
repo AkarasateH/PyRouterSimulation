@@ -3,7 +3,7 @@ import json
 class ProfileManager:
   filename = 'profile.json'
   def __init__(self):
-    print('Created profile')
+    return None
 
   # Adding new profile.
   def addAndUpdateProfile(self, name: str, subnet: str, port: int, connList: [str]):
