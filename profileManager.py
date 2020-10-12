@@ -1,4 +1,7 @@
 import json
+import logging
+
+logging.basicConfig(format='%(asctime)s - ProfileManager:%(message)s', level=logging.INFO)
 
 class ProfileManager:
   filename = 'profile.json'
@@ -17,6 +20,7 @@ class ProfileManager:
 
   # Add Neighbor
   def addNeighbor(self, routerName, neighborName):
+    logging.info(f'Adding neighbor {neighborName} to {routerName}.')
     profiles = self.__loadProfiles()
     if not (neighborName in profiles[routerName]['neighbor']):
       profiles[routerName]['neighbor'].append(neighborName)
@@ -25,18 +29,20 @@ class ProfileManager:
 
   # Remove Neighbor
   def removeNeighbor(self, routerName, neighborName):
+    logging.info(f'Removing neighbor {neighborName} from {routerName}.')
     profiles = self.__loadProfiles()
     profiles[routerName]['neighbor'].remove(neighborName)
     self.__updateProfiles(profiles)
     return profiles[routerName]
 
   # Removing profile.
-  def removeProfile(self, name: str):
+  def removeProfile(self, profileName: str):
     # Get current profile
+    logging.info(f'Removing profile {profileName}.')
     profile = self.__loadProfiles()
 
-    # Pop profile [name] out.
-    profile.pop(name)
+    # Pop profile [profileName] out.
+    profile.pop(profileName)
 
     # Update profile as json
     self.__updateProfiles(profile)
@@ -45,6 +51,7 @@ class ProfileManager:
 
   # Adding new profile.
   def addAndUpdateProfile(self, name: str, ip: str, subnet: str, port: int, neighbor: [str]):
+    logging.info(f'Adding new profile {name}.')
     profile = {}
     newObj = {
       'ip': ip,
@@ -64,8 +71,10 @@ class ProfileManager:
     return profile
 
   def getProfileByName(self, name: str):
+    logging.info(f'Getting information of profile by name {name}.')
     profile = self.__loadProfiles()
     return profile[name]
 
   def getAllProfiles(self):
+    logging.info(f'Getting information of all profiles.')
     return self.__loadProfiles()
