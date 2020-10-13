@@ -1,5 +1,6 @@
 import json
 import logging
+from helper import DisplayObjectTable
 
 logging.basicConfig(format='%(asctime)s - ProfileManager:%(message)s', level=logging.INFO)
 
@@ -77,4 +78,6 @@ class ProfileManager:
 
   def getAllProfiles(self):
     logging.info(f'Getting information of all profiles.')
-    return self.__loadProfiles()
+    profiles = self.__loadProfiles()
+    DisplayObjectTable(['Router Name', 'IP', 'Port', 'Subnets', 'Neighbors'], profiles, 'Profiles Table')
+    return profiles
