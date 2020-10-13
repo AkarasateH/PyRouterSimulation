@@ -20,7 +20,7 @@ class ProfileManager:
       json.dump(json.dumps(profiles), file)
 
   # Get all subnets in the network
-  def getAllSubnets(self):
+  def __getAllSubnets(self):
     profiles = self.__loadProfiles()
     subnets = []
 
@@ -30,8 +30,15 @@ class ProfileManager:
 
     return subnets
 
+  # Get unique subnet with the router.
+  def getUniqueSubnets(self, routerName: str):
+    routerSubnets = self.__loadProfiles()[routerName]['subnets']
+    set_router = set(routerSubnets)
+    set_network = set(self.__getAllSubnets())
+    return list(set_network - set_router)
+
   # Add Neighbor
-  def addNeighbor(self, routerName, neighborName):
+  def addNeighbor(self, routerName: str, neighborName: str):
     logging.info(f'Adding neighbor {neighborName} to {routerName}.')
     profiles = self.__loadProfiles()
     if not (neighborName in profiles[routerName]['neighbor']):
@@ -40,7 +47,7 @@ class ProfileManager:
     return profiles[routerName]
 
   # Remove Neighbor
-  def removeNeighbor(self, routerName, neighborName):
+  def removeNeighbor(self, routerName: str, neighborName: str):
     logging.info(f'Removing neighbor {neighborName} from {routerName}.')
     profiles = self.__loadProfiles()
     profiles[routerName]['neighbor'].remove(neighborName)
