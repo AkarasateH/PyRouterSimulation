@@ -19,6 +19,17 @@ class ProfileManager:
     with open(self.filename, 'w') as file:
       json.dump(json.dumps(profiles), file)
 
+  # Get all subnets in the network
+  def getAllSubnets(self):
+    profiles = self.__loadProfiles()
+    subnets = []
+
+    for profileName in profiles.keys():
+      for subnet in profiles[profileName]['subnets']:
+        subnets.append(subnet) if (not subnet in subnets) else subnets
+
+    return subnets
+
   # Add Neighbor
   def addNeighbor(self, routerName, neighborName):
     logging.info(f'Adding neighbor {neighborName} to {routerName}.')
