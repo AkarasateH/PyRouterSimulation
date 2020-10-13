@@ -50,13 +50,13 @@ class ProfileManager:
     return profile
 
   # Adding new profile.
-  def addAndUpdateProfile(self, name: str, ip: str, subnet: str, port: int, neighbor: [str]):
+  def addAndUpdateProfile(self, name: str, ip: str, subnets: [str], port: int, neighbor: [str]):
     logging.info(f'Adding new profile {name}.')
     profile = {}
     newObj = {
       'ip': ip,
       'port': port,
-      'subnet': subnet,
+      'subnets': subnets,
       'neighbor': neighbor
     }
 
