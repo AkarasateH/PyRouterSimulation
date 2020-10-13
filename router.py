@@ -56,9 +56,10 @@ class Router:
         pass
 
   # Multi tasks for server process.
-  def runServer(self):
+  def run(self):
     job = threading.Thread(target=self.__createServer, args=[])
     job.start()
+    self.checkAliveNeighbor()
 
   def __advertiseProcess(self, profile: dict, routerName: str):
     clientSocket = socket(AF_INET, SOCK_DGRAM)
