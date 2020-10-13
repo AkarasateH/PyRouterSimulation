@@ -1,4 +1,5 @@
 from tabulate import tabulate
+import json
 
 def DisplayObjectTable(headers: [str], data: dict, tableName: str = 'Table'):
   primaryKeys = data.keys()
@@ -13,3 +14,9 @@ def DisplayObjectTable(headers: [str], data: dict, tableName: str = 'Table'):
 
   print('\n ----------- {} ----------- '.format(tableName) )
   print(tabulate(dataDisplay, headers=headers, tablefmt='fancy_grid'))
+
+def ConvertJsonToString(data: dict):
+  return json.dumps(data)
+
+def ConvertStringToJson(data: str):
+  return json.loads(data)
