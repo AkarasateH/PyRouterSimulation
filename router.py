@@ -32,7 +32,13 @@ class Router:
     info['port'] = self.myPort
     return info
   
-  def __setInterval(self, func, profile, routerName):
+  def __getDeathRouters(self):
+    delRouterNames = []
+    for routerName in self.COUNTER_FAIL.keys():
+      if self.COUNTER_FAIL[routerName].get(routerName, 0) == 6:
+        delRouterNames.append(routerName)
+    return delRouterNames
+
     e = threading.Event()
     while not e.wait(self.INTERVAL_TIME):
         if self.COUNTER_FAIL.get(routerName, 0) == self.ALIVE_TIMEOUT - 1:
@@ -143,7 +149,7 @@ class Router:
 
       clientSocket.sendto(requestMessage.encode(), (requestMsg['dest']['ip'], requestMsg['dest']['port']))
 
-      # Response format will be { rcvFrom: [neighbor-name], cost: [link-cost], subnet: [found-subnet] }
+      # Response format will be { rcvFrom: [neighbor-name], cost: [link-cost], subnet: [found-subnet], deathRouters:[router-name] }
       responseMessage, addr = clientSocket.recvfrom(4096)
       responseDict = ConvertStringToJson(responseMessage.decode())
 
@@ -154,6 +160,10 @@ class Router:
         'cost': responseDict['cost'] + 1,
         'owner': responseDict['rcvFrom']
       }
+
+      # Remove neighbor from neighbor data returned
+      for routerName in responseDict['deathRouters']:
+        self.profileManager.removeNeighbor(self.myName, routerName)
 
       self.routingTable.updateTable(updatingData)
 
@@ -180,6 +190,7 @@ class Router:
         'rcvFrom': self.myName,
         'cost': self.routingTable.getLinkDetailBySubnet(subnet)['linkDetail']['cost'],
         'subnet': subnet
+        'deathRouters': self.__getDeathRouters()
       }
 
       return ConvertJsonToString(response)
