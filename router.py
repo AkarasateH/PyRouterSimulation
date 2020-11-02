@@ -189,7 +189,7 @@ class Router:
       response = {
         'rcvFrom': self.myName,
         'cost': self.routingTable.getLinkDetailBySubnet(subnet)['linkDetail']['cost'],
-        'subnet': subnet
+        'subnet': subnet,
         'deathRouters': self.__getDeathRouters()
       }
 
