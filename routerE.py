@@ -1,3 +1,7 @@
+import logging
+
+logging.basicConfig(format='%(asctime)s - Router E:%(message)s', level=logging.INFO)
+
 from router import Router
 from profileManager import ProfileManager
 from helper import DisplayObjectTable

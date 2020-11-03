@@ -2,7 +2,7 @@ import json
 import logging
 from helper import DisplayObjectTable
 
-logging.basicConfig(format='%(asctime)s - ProfileManager:%(message)s', level=logging.INFO)
+logging.getLogger('ProfileManager:')
 
 class ProfileManager:
   filename = 'profile.json'

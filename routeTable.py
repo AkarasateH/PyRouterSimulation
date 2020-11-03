@@ -1,7 +1,7 @@
 import logging
 from helper import DisplayObjectTable 
 
-logging.basicConfig(format='%(asctime)s - RoutingTable:%(message)s', level=logging.INFO)
+logging.getLogger('RoutingTable:')
 
 class RoutingTable:
   def __displayTable(self):

@@ -8,7 +8,7 @@ from routeTable import RoutingTable
 
 from helper import ConvertJsonToString, ConvertStringToJson
 
-logging.basicConfig(format='%(asctime)s - Router:%(message)s', level=logging.INFO)
+logging.getLogger('Router:')
 
 class Router:
   TIMEOUT = 3 # Timeout 2 sec
