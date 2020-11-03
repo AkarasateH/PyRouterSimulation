@@ -2,27 +2,27 @@
 echo -n "---- Running Routers ----"
 
 osascript -e 'tell app "Terminal"
-    do script "cd ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/ && python3 routerA.py"
+    do script "cd ~/KMUTNB_M-MCS/ComputerNetwork/PyRouterSimulation/ && python3 routerA.py"
 end tell'
 
 osascript -e 'tell app "Terminal"
-    do script "cd ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/ && python3 routerB.py"
+    do script "cd ~/KMUTNB_M-MCS/ComputerNetwork/PyRouterSimulation/ && python3 routerB.py"
 end tell'
 
 osascript -e 'tell app "Terminal"
-    do script "cd ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/ && python3 routerC.py"
+    do script "cd ~/KMUTNB_M-MCS/ComputerNetwork/PyRouterSimulation/ && python3 routerC.py"
 end tell'
 
-osascript -e 'tell app "Terminal"
-    do script "cd ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/ && python3 routerD.py"
-end tell'
+# osascript -e 'tell app "Terminal"
+#     do script "cd ~/KMUTNB_M-MCS/ComputerNetwork/PyRouterSimulation/ && python3 routerD.py"
+# end tell'
 
-osascript -e 'tell app "Terminal"
-    do script "cd ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/ && python3 routerE.py"
-end tell'
+# osascript -e 'tell app "Terminal"
+#     do script "cd ~/KMUTNB_M-MCS/ComputerNetwork/PyRouterSimulation/ && python3 routerE.py"
+# end tell'
 
-osascript -e 'tell app "Terminal"
-    do script "cd ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/ && python3 routerF.py"
-end tell'
+# osascript -e 'tell app "Terminal"
+#     do script "cd ~/KMUTNB_M-MCS/ComputerNetwork/PyRouterSimulation/ && python3 routerF.py"
+# end tell'
 
 echo -n "---- All router are running successfully ----"
