@@ -114,6 +114,7 @@ class Router:
     myNeighbors = self.profileManager.getProfileByName(self.myName)['neighbor']
     findingSubnets = []
 
+    # If do not have subnet in this router
     if len(subnets) == 0:
       findingSubnets = self.profileManager.getUniqueSubnets(self.myName)
     else:
@@ -151,7 +152,8 @@ class Router:
 
       clientSocket.sendto(requestMessage.encode(), (requestMsg['dest']['ip'], requestMsg['dest']['port']))
 
-      # Response format will be { rcvFrom: [neighbor-name], cost: [link-cost], subnet: [found-subnet], deathRouters:[router-name] }
+      # Response format will be
+      # { rcvFrom: [neighbor-name], cost: [link-cost], subnet: [found-subnet], deathRouters:[router-name] }
       responseMessage, addr = clientSocket.recvfrom(4096)
       responseDict = ConvertStringToJson(responseMessage.decode())
 

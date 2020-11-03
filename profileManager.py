@@ -50,7 +50,8 @@ class ProfileManager:
   def removeNeighbor(self, routerName: str, neighborName: str):
     logging.info(f'Removing neighbor {neighborName} from {routerName}.')
     profiles = self.__loadProfiles()
-    profiles[routerName]['neighbor'].remove(neighborName)
+    if neighborName in profiles[routerName]['neighbor']:
+      profiles[routerName]['neighbor'].remove(neighborName)
     self.__updateProfiles(profiles)
     return profiles[routerName]
 
@@ -61,7 +62,8 @@ class ProfileManager:
     profile = self.__loadProfiles()
 
     # Pop profile [profileName] out.
-    profile.pop(profileName)
+    if profileName in profile.keys():
+      profile.pop(profileName)
 
     # Update profile as json
     self.__updateProfiles(profile)
