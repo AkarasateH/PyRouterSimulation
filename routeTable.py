@@ -23,6 +23,17 @@ class RoutingTable:
   def removeLinkBySubnet(self, subnet: str):
     self.table.pop(subnet)
 
+  def removeDeathRouter(self, routerName: str):
+    for subnet in self.table.keys():
+      if self.table[subnet].get('nextHop', '-') == routerName:
+        logging.info('Removing next hop {} from subnet {}'.format(routerName, subnet))
+        if subnet in self.table.keys():
+          self.table.pop(subnet)
+          self.__displayTable()
+          return True
+    
+    return False
+
   def subnetIsFound(self, subnet: str):
     return True if subnet in self.table.keys() else False
 

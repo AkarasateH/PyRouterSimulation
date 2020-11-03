@@ -44,6 +44,7 @@ class Router:
     while not e.wait(self.INTERVAL_TIME):
         if self.COUNTER_FAIL.get(routerName, 0) == self.ALIVE_TIMEOUT - 1:
           self.profileManager.removeNeighbor(self.myName, routerName)
+          self.routingTable.removeDeathRouter(routerName)
           e.set()
         else:
           func(profile, routerName)
@@ -168,6 +169,7 @@ class Router:
       # Remove neighbor from neighbor data returned
       for routerName in responseDict['deathRouters']:
         self.profileManager.removeNeighbor(self.myName, routerName)
+        self.routingTable.removeDeathRouter(routerName)
 
       self.routingTable.updateTable(updatingData)
 
