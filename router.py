@@ -39,6 +39,7 @@ class Router:
         delRouterNames.append(routerName)
     return delRouterNames
 
+  def __setInterval(self, func, profile, routerName):
     e = threading.Event()
     while not e.wait(self.INTERVAL_TIME):
         if self.COUNTER_FAIL.get(routerName, 0) == self.ALIVE_TIMEOUT - 1:
