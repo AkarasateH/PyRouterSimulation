@@ -51,7 +51,7 @@ class Router:
   # Server Process:
   def __createServer(self):
     serverSocket = socket(AF_INET, SOCK_DGRAM)
-    serverSocket.bind((self.myIP, self.myPort))
+    serverSocket.bind(('', self.myPort))
 
     pattern = re.compile("(sender)|(receiver)|(findSubnet)")
 
