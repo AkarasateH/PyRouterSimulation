@@ -162,7 +162,7 @@ class Router:
       pass
 
   def updateRoutingTable(self):
-    logging.info('Router {} is getting all requests for updating routing table {}'.format(self.myName))
+    logging.info('Router {} is getting all requests for updating routing table'.format(self.myName))
     requests = self.__getRequestToUpdateRT()
 
     for request in requests:
