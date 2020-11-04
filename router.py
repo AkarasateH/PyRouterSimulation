@@ -100,7 +100,7 @@ class Router:
   def checkAliveNeighbor(self):
     profile = self.profileManager.getProfileByName(self.myName)
     neighbors = profile['neighbor']
-    logging.info(f'Check stat neighbors : {neighbors}')
+    # logging.info(f'Check stat neighbors : {neighbors}')
 
     for neighbor in neighbors:
       neighborProfile = self.profileManager.getProfileByName(neighbor)
@@ -156,7 +156,7 @@ class Router:
       responseMessage, addr = clientSocket.recvfrom(4096)
       responseDict = ConvertStringToJson(responseMessage.decode())
 
-      logging.info('Response message: {}'.format(responseDict))
+      # logging.info('Response message: {}'.format(responseDict))
 
       updatingData = {
         'subnet': responseDict['subnet'],
@@ -184,7 +184,7 @@ class Router:
     return None
 
   def __findSubnetProcess(self, subnet: str, myCost: int = 0):
-    logging.info('Finding subnet: {}'.format(subnet))
+    # logging.info('Finding subnet: {}'.format(subnet))
     cost = myCost + 1
     if self.routingTable.subnetIsFound(subnet):
       response = {
