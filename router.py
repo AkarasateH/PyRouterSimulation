@@ -26,6 +26,7 @@ class Router:
     self.profileManager = ProfileManager()
     self.routingTable = RoutingTable(name, self.profileManager.getProfileByName(name)['subnets'])
     self.COUNTER_FAIL = {}
+    self.deathRouters = []
 
   def getInfo(self):
     info = dict()
@@ -37,6 +38,7 @@ class Router:
     e = threading.Event()
     while not e.wait(self.INTERVAL_TIME):
         if self.COUNTER_FAIL.get(routerName, 0) >= self.ALIVE_TIMEOUT:
+          self.deathRouters.append(routerName)
           self.profileManager.removeNeighbor(self.myName, routerName)
           self.routingTable.removeHopByRouter(routerName)
           e.set()
@@ -128,7 +130,8 @@ class Router:
             'ip': neighborProfile['ip'],
             'port': neighborProfile['port'],
           },
-          'findSubnet': findSubnet
+          'findSubnet': findSubnet,
+          'deathRouters': self.deathRouters
         }
 
         requests.append(request)
@@ -144,6 +147,7 @@ class Router:
         'sender': requestMsg['sender'],
         'receiver': requestMsg['receiver'],
         'findSubnet': requestMsg['findSubnet'],
+        'deathRouters': requestMsg['deathRouters'],
       })
 
       clientSocket.sendto(requestMessage.encode(), (requestMsg['dest']['ip'], requestMsg['dest']['port']))

@@ -19,6 +19,12 @@ class RoutingTable:
       }
     self.__displayTable()
 
+  def removeHopByRouter(self, name: str):
+    interations = self.table.copy()
+    for subnet in interations.keys():
+      if name == self.table[subnet]['nextHop']:
+        self.table.pop(subnet)
+
   # Remove link in the table by subnet
   def removeLinkBySubnet(self, subnet: str):
     self.table.pop(subnet)
