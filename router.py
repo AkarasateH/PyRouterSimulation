@@ -2,6 +2,7 @@ from socket import *
 import threading
 import logging
 import re
+from time import sleep
 
 from profileManager import ProfileManager
 from routeTable import RoutingTable
@@ -35,8 +36,9 @@ class Router:
   def __setInterval(self, func, profile, routerName):
     e = threading.Event()
     while not e.wait(self.INTERVAL_TIME):
-        if self.COUNTER_FAIL.get(routerName, 0) == self.ALIVE_TIMEOUT - 1:
+        if self.COUNTER_FAIL.get(routerName, 0) >= self.ALIVE_TIMEOUT:
           self.profileManager.removeNeighbor(self.myName, routerName)
+          self.routingTable.removeHopByRouter(routerName)
           e.set()
         else:
           func(profile, routerName)
@@ -44,9 +46,9 @@ class Router:
   # Server Process:
   def __createServer(self):
     serverSocket = socket(AF_INET, SOCK_DGRAM)
-    serverSocket.bind((self.myIP, self.myPort))
+    serverSocket.bind(('', self.myPort))
 
-    pattern = re.compile("(sender)|(receiver)|(findSubnet)")
+    pattern = re.compile("(sender)|(receiver)|(findSubnet)|(deathRouters)")
 
     while 1:
       try:
@@ -158,17 +160,19 @@ class Router:
       self.routingTable.updateTable(updatingData)
 
     except timeout as err:
-      logging.info('Update Routing Table:Error: {}.'.format(err))
+      logging.info('Update Routing Table: {} :Error: {}.'.format(requestMsg['receiver'], err))
       pass
 
   def updateRoutingTable(self):
-    logging.info('Router {} is getting all requests for updating routing table'.format(self.myName))
-    requests = self.__getRequestToUpdateRT()
+    while 1:
+      sleep(self.INTERVAL_TIME)
+      # logging.info('Router {} is getting all requests for updating routing table'.format(self.myName))
+      requests = self.__getRequestToUpdateRT()
 
-    for request in requests:
-      thread = threading.Thread(target=self.__updatingRTProcess, args=[request])
-      thread.start()
-      thread.join()
+      for request in requests:
+        thread = threading.Thread(target=self.__updatingRTProcess, args=[request])
+        thread.start()
+        thread.join()
 
     return None
 
