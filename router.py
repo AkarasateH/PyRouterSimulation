@@ -52,27 +52,30 @@ class Router:
 
     while 1:
       try:
-        logging.info('Server {} is ready to receive'.format(self.myName))
-        logging.info('Server {} receiving data . . .'.format(self.myName))
+        # logging.info('Server {} is ready to receive'.format(self.myName))
+        # logging.info('Server {} receiving data . . .'.format(self.myName))
         receivedData, addr = serverSocket.recvfrom(4096)
         decodedMessage = receivedData.decode()
-        logging.info(f'{self.myName} received message: {decodedMessage} from {addr}')
+        # logging.info(f'{self.myName} received message: {decodedMessage} from {addr}')
         if decodedMessage == self.reqMessage:
           serverSocket.sendto(self.resMessage.encode(), addr)
         elif pattern.search(decodedMessage):
-          logging.info(f'{self.myName} decoded message: {decodedMessage}')
+          # logging.info(f'{self.myName} decoded message: {decodedMessage}')
           requestJson = ConvertStringToJson(decodedMessage)
           response = self.__findSubnetProcess(requestJson['findSubnet'], 0)
           serverSocket.sendto(response.encode(), addr)
+          for death in requestJson['deathRouters']:
+            self.profileManager.removeNeighbor(self.myName, death)
+            self.routingTable.removeHopByRouter(death)
       except Exception as err:
         # logging.info('ERR: ', err)
         pass
 
   # Multi tasks for server process.
   def run(self):
-    job = threading.Thread(target=self.__createServer, args=[])
-    job.start()
-    # self.checkAliveNeighbor()
+    job = threading.Thread(target=self.__createServer, args=[]).start()
+    job2 = threading.Thread(target=self.updateRoutingTable, args=[]).start()
+    self.checkAliveNeighbor()
     # self.updateRoutingTable()
 
   def __advertiseProcess(self, profile: dict, routerName: str):
