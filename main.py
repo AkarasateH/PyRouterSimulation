@@ -40,14 +40,14 @@ def __initRouters():
   
   return routers
 
-# __createProfiles()
-routers = __initRouters()
-routers['A'].updateRoutingTable()
-routers['B'].updateRoutingTable()
-routers['C'].updateRoutingTable()
-routers['D'].updateRoutingTable()
-routers['E'].updateRoutingTable()
-routers['F'].updateRoutingTable()
+__createProfiles()
+# routers = __initRouters()
+# routers['A'].updateRoutingTable()
+# routers['B'].updateRoutingTable()
+# routers['C'].updateRoutingTable()
+# routers['D'].updateRoutingTable()
+# routers['E'].updateRoutingTable()
+# routers['F'].updateRoutingTable()
 # ProfileManager().addAndUpdateProfile('Z', '127.0.0.1', '192.168.99.0/24', 4099, [])
 # ProfileManager().addNeighbor('A', 'Z')
 # profiles = ProfileManager().getAllProfiles()
