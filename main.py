@@ -2,7 +2,9 @@ from router import Router
 from profileManager import ProfileManager
 from helper import DisplayObjectTable
 from routeTable import RoutingTable
+import logging
 
+logging.basicConfig(format='%(asctime)s - Main:%(message)s', level=logging.INFO)
 def __createProfiles():
   profileManager = ProfileManager()
   # ------------- Minimal Network -------------
