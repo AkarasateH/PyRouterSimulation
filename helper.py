@@ -1,5 +1,6 @@
 from tabulate import tabulate
 import json
+import os
 
 def DisplayObjectTable(headers: [str], data: dict, tableName: str = 'Table'):
   primaryKeys = data.keys()
@@ -12,6 +13,7 @@ def DisplayObjectTable(headers: [str], data: dict, tableName: str = 'Table'):
     
     dataDisplay.append(newArray)
 
+  os.system('clear')
   print('\n ----------- {} ----------- '.format(tableName) )
   print(tabulate(dataDisplay, headers=headers, tablefmt='fancy_grid'))
 
