@@ -187,6 +187,16 @@ class Router:
   def __findSubnetProcess(self, subnet: str, myCost: int = 0):
     # logging.info('Finding subnet: {}'.format(subnet))
     cost = myCost + 1
+
+    # Limit maximum cost
+    if cost >= 16:
+      response = {
+        'rcvFrom': self.myName,
+        'cost': cost,
+        'subnet': subnet
+      }
+
+      return ConvertJsonToString(response)
     if self.routingTable.subnetIsFound(subnet):
       response = {
         'rcvFrom': self.myName,
