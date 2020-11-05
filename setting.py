@@ -27,29 +27,4 @@ def __createProfiles():
 
   profileManager.getAllProfiles()
 
-def __initRouters():
-  profile = ProfileManager()
-  profiles = profile.getAllProfiles()
-  routers = {}
-
-  for routerName in profiles.keys():
-    print('Initial Router: ', routerName);
-    if routerName != 'Z':
-      routers[routerName] = Router(profiles[routerName]['ip'], profiles[routerName]['port'], routerName)
-      routers[routerName].run()
-  
-  return routers
-
 __createProfiles()
-# routers = __initRouters()
-# routers['A'].updateRoutingTable()
-# routers['B'].updateRoutingTable()
-# routers['C'].updateRoutingTable()
-# routers['D'].updateRoutingTable()
-# routers['E'].updateRoutingTable()
-# routers['F'].updateRoutingTable()
-# ProfileManager().addAndUpdateProfile('Z', '127.0.0.1', '192.168.99.0/24', 4099, [])
-# ProfileManager().addNeighbor('A', 'Z')
-# profiles = ProfileManager().getAllProfiles()
-# DisplayObjectTable(['Name', 'IP', 'Port', 'Subnet', 'Neighbor'], profiles)
-# routers['A'].checkAliveNeighbor()

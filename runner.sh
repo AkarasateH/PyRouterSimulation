@@ -1,6 +1,6 @@
 #!/bin/bash
 echo -n "---- Setting Profiles ----"
-python3 ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/main.py
+python3 ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/setting.py
 
 echo -n "---- Running Routers ----"
 
