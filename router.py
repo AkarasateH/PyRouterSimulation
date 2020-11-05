@@ -90,6 +90,7 @@ class Router:
 
       if receivedMessage.decode() == self.resMessage:
         logging.info('{} is alive.'.format(routerName))
+        self.COUNTER_FAIL[routerName] = 0
 
     except timeout as err:
       self.COUNTER_FAIL[routerName] = self.COUNTER_FAIL.get(routerName, 0) + 1
