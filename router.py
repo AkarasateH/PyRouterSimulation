@@ -90,6 +90,7 @@ class Router:
 
       if receivedMessage.decode() == self.resMessage:
         logging.info('{} is alive.'.format(routerName))
+        self.COUNTER_FAIL[routerName] = 0
 
     except timeout as err:
       self.COUNTER_FAIL[routerName] = self.COUNTER_FAIL.get(routerName, 0) + 1
@@ -186,6 +187,16 @@ class Router:
   def __findSubnetProcess(self, subnet: str, myCost: int = 0):
     # logging.info('Finding subnet: {}'.format(subnet))
     cost = myCost + 1
+
+    # Limit maximum cost
+    if cost >= 16:
+      response = {
+        'rcvFrom': self.myName,
+        'cost': cost,
+        'subnet': subnet
+      }
+
+      return ConvertJsonToString(response)
     if self.routingTable.subnetIsFound(subnet):
       response = {
         'rcvFrom': self.myName,

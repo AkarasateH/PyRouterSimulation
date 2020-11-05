@@ -1,4 +1,7 @@
 #!/bin/bash
+echo -n "---- Setting Profiles ----"
+python3 ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/main.py
+
 echo -n "---- Running Routers ----"
 
 # osascript -e 'tell app "Terminal"
