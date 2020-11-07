@@ -189,7 +189,7 @@ class Router:
     cost = myCost + 1
 
     # Limit maximum cost
-    if cost >= 16:
+    if cost >= 15:
       response = {
         'rcvFrom': self.myName,
         'cost': cost,
