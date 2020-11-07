@@ -135,6 +135,8 @@ class Router:
           'deathRouters': self.deathRouters
         }
 
+        self.deathRouters = []
+
         requests.append(request)
 
     return requests
