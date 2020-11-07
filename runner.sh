@@ -28,4 +28,8 @@ osascript -e 'tell app "Terminal"
     do script "cd ~/Learning/S-MCS_Work/ComNetwork/PyRouterSimulation/ && python3 routerF.py"
 end tell'
 
+osascript -e 'tell app "Terminal"
+    do script "cd ~/KMUTNB_M-MCS/ComputerNetwork/PyRouterSimulation/ && python3 routerG.py"
+end tell'
+
 echo -n "---- All router are running successfully ----"
