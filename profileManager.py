@@ -90,7 +90,7 @@ class ProfileManager:
     return profile
 
   def getProfileByName(self, name: str):
-    logging.info(f'Getting information of profile by name {name}.')
+    # logging.info(f'Getting information of profile by name {name}.')
     profile = self.__loadProfiles()
     return profile[name]
 
