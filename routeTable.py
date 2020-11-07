@@ -52,6 +52,7 @@ class RoutingTable:
     'cost': int,
     'owner': str
   }):
+    limitCost = 16 if tableData['cost'] >= 15 else tableData['cost']
     if not tableData['subnet'] in self.table:
       self.__updateTableBySubnet(tableData['subnet'], tableData['owner'], tableData['cost'])
     elif tableData['cost'] < self.table[tableData['subnet']]['cost']:
