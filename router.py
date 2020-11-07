@@ -143,7 +143,6 @@ class Router:
     clientSocket = socket(AF_INET, SOCK_DGRAM)
     clientSocket.settimeout(self.TIMEOUT)
     try:
-      sleep(self.INTERVAL_TIME)
       logging.info('{} Update Routing Table {}'.format(self.myName, requestMsg))
       requestMessage = ConvertJsonToString({
         'sender': requestMsg['sender'],
@@ -174,6 +173,7 @@ class Router:
 
   def updateRoutingTable(self):
     while 1:
+      sleep(self.INTERVAL_TIME)
       # logging.info('Router {} is getting all requests for updating routing table'.format(self.myName))
       requests = self.__getRequestToUpdateRT()
 
